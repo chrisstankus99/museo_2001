@@ -6,6 +6,20 @@ class Curator
     @artists = []
   end
 
+  def load_photographs(file_path)
+    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+    csv.map do |photograph_params|
+      @photographs << Photograph.new(photograph_params)
+    end
+  end
+
+  def load_artists(file_path)
+    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+    csv.map do |artist_params|
+      @artists << Artist.new(artist_params)
+    end
+  end
+
   def add_photograph(photograph)
     @photographs << photograph
   end
@@ -51,10 +65,15 @@ class Curator
     photographs_from_country
   end
 
-  def load_photographs(file_path)
-    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
-    loaded_photos = csv.map do |row|
-      @photographs << Photograph.new(row)
+  def photographs_taken_between(year_range)
+    photos_taken_between = []
+    photographs_by_artist.each do |artist, photographs|
+      photographs.each do |photograph|
+        if year_range.include?(photograph.year.to_i)
+          photos_taken_between << photograph
+        end
+      end
     end
+    photos_taken_between
   end
 end

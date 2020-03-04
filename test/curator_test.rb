@@ -133,13 +133,25 @@ class CuratorTest < Minitest::Test
     assert_instance_of Array, @curator.photographs
     assert_equal 4, @curator.photographs.count
   end
-end
 
-# pry(main)> require './lib/curator'
-#
-# pry(main)> curator = Curator.new
-# #=> #<Curator:0x00007fd98685b2b0...>
-#
+  def test_load_artists
+    @curator.load_artists('./data/artists.csv')
+    assert_instance_of Array, @curator.artists
+    assert_equal 6, @curator.artists.count
+  end
+
+  def test_photographs_taken_between
+    @curator.add_artist(@artist_1)
+    @curator.add_artist(@artist_2)
+    @curator.add_artist(@artist_3)
+    @curator.add_photograph(@photo_1)
+    @curator.add_photograph(@photo_2)
+    @curator.add_photograph(@photo_3)
+    @curator.add_photograph(@photo_4)
+
+    assert_equal [@photo_1], @curator.photographs_taken_between(1950..1965)
+  end
+end
 # pry(main)> curator.load_photographs('./data/photographs.csv')
 #
 # pry(main)> curator.load_artists('./data/artists.csv')

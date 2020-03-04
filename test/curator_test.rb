@@ -170,11 +170,3 @@ class CuratorTest < Minitest::Test
     assert_equal expected, @curator.artists_photographs_by_age(@diane_arbus)
   end
 end
-# pry(main)> curator.photographs_taken_between(1950..1965)
-# #=> [#<Photograph:0x00007fd986254740...>, #<Photograph:0x00007fd986254678...>]
-#
-# pry(main)> diane_arbus = curator.find_artist_by_id("3")
-#
-# pry(main)> curator.artists_photographs_by_age(diane_arbus)
-# => {44=>"Identical Twins, Roselle, New Jersey", 39=>"Child with Toy Hand Grenade in Central Park"}
-# ```

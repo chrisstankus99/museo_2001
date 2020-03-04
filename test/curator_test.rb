@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'csv'
 require './lib/photograph'
 require './lib/artist'
 require './lib/curator'
@@ -125,9 +126,29 @@ class CuratorTest < Minitest::Test
     @curator.add_photograph(@photo_4)
     assert_equal [@photo_2, @photo_3, @photo_4], @curator.photographs_taken_by_artist_from("United States")
     assert_equal [], @curator.photographs_taken_by_artist_from("Argentina")
+  end
 
+  def test_load_photographs
+    @curator.load_photographs('./data/photographs.csv')
+    assert_instance_of Array, @curator.photographs
+    assert_equal 4, @curator.photographs.count
   end
 end
-# photographs_by_artist - This method will return a hash artists as keys, and an array of their photographs as values.
-# artists_with_multiple_photographs - This method returns an Array of names of artists who have more than one photograph
-# photographs_taken_by_artists_from(string) - This method takes a String representing a country. It returns an Array of Photographs that were taken by a photographer from that country.
+
+# pry(main)> require './lib/curator'
+#
+# pry(main)> curator = Curator.new
+# #=> #<Curator:0x00007fd98685b2b0...>
+#
+# pry(main)> curator.load_photographs('./data/photographs.csv')
+#
+# pry(main)> curator.load_artists('./data/artists.csv')
+#
+# pry(main)> curator.photographs_taken_between(1950..1965)
+# #=> [#<Photograph:0x00007fd986254740...>, #<Photograph:0x00007fd986254678...>]
+#
+# pry(main)> diane_arbus = curator.find_artist_by_id("3")
+#
+# pry(main)> curator.artists_photographs_by_age(diane_arbus)
+# => {44=>"Identical Twins, Roselle, New Jersey", 39=>"Child with Toy Hand Grenade in Central Park"}
+# ```

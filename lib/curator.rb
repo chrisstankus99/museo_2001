@@ -50,4 +50,11 @@ class Curator
     end
     photographs_from_country
   end
+
+  def load_photographs(file_path)
+    csv = CSV.read(file_path, headers: true, header_converters: :symbol)
+    loaded_photos = csv.map do |row|
+      @photographs << Photograph.new(row)
+    end
+  end
 end

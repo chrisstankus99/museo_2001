@@ -77,11 +77,3 @@ class Curator
     photos_taken_between
   end
 end
-
-  # def artists_photographs_by_age(artist_obj)
-  #   photographs_by_artist.each do |artist, photographs|
-  #     photographs.each do |photograph|
-  #       require "pry"; binding.pry
-  #     end
-  #   end
-  # end

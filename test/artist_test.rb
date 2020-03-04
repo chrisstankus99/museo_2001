@@ -29,12 +29,6 @@ class ArtistTest < Minitest::Test
   end
 
   def test_age_of_death
-    assert_equal
+    assert_equal 82, @artist.age_at_death
   end
 end
-
-# Use TDD to create a Photograph and an Artist class that respond to the following interaction pattern.
-# For age_at_death, assume an artist was born and died on the same day.
-
-# pry(main)> artist.age_at_death
-# #=> 82
